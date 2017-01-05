@@ -1,8 +1,8 @@
 #!/bin/env python
 
-import urllib2, json, time, re
+import urllib2, json, time, re, os
 
-dataLoc = "/home/ric/dev/stocks/python/data/"
+dataLoc = os.path.dirname(os.path.realpath(__file__)) + "/data/"
 lastTimeDict = {}
 
 def getPrice(ltDict, *codes):

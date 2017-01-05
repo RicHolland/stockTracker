@@ -1,13 +1,15 @@
-import csv
+import csv, os
 from datetime import datetime, date
-from bokeh.plotting import figure, output_file, show
+from bokeh.plotting import figure, output_file, save
+
+dataLoc = os.path.dirname(os.path.realpath(__file__)) + "/data/"
 
 x = []
 y = []
 
 stock = "LON:BA"
 
-with open("/home/ric/dev/stocks/python/data/" + stock + "_data.csv") as data:
+with open(dataLoc + stock + "_data.csv") as data:
     dd = csv.reader(data, delimiter=",")
     for row in dd:
         t, p = row
@@ -25,7 +27,9 @@ x_l = datetime(today.year, today.month, today.day, 18)
 plot = figure(title = stock, x_axis_type = "datetime", x_range = [x_f, x_l])
 plot.line(x, y)
 
-show(plot)
+output_file("/var/www/html/plots/" + stock + ".html", title=stock)
+
+save(plot)
 
 #for z in x:
     #print(z)
